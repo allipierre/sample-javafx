@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>de.hbrs</groupId>
+	<artifactId>todolistmanager</artifactId>
+	<version>1.0-SNAPSHOT</version>
+
+	<name>Bach</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.10</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testfx</groupId>
+			<artifactId>testfx-junit</artifactId>
+			<version>4.0.13-alpha</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testfx</groupId>
+			<artifactId>openjfx-monocle</artifactId>
+			<version>8u76-b04</version> <!-- 8u76-b04 for Java 8 / jdk-9+181 for Java 9 -->
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.1</version>
+				<executions>
+					<execution>
+						<id>pre-unit-test</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>post-unit-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<excludes>
+						<exclude>de/hbrs/todolistmanager/controller/TodoListViewController.class</exclude>
+						<exclude>de/hbrs/todolistmanager/controller/TodoListViewController$1.class</exclude>
+						<exclude>de/hbrs/todolistmanager/controller/TodoListViewController$2.class</exclude>
+						<exclude>de/hbrs/todolistmanager/controller/ResizingListener.class</exclude>
+						<exclude>de/hbrs/todolistmanager/view/DatePropertyValueFactory.class</exclude>
+						<exclude>de/hbrs/todolistmanager/TodoListManager.class</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.4.0.905</version>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>sonar</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<sonar.host.url>https://sepp-sonar.inf.h-brs.de</sonar.host.url>
+				<sonar.projectKey>Bach</sonar.projectKey>
+				<sonar.login>${env.sonartoken}</sonar.login>
+				<sonar.coverage.exclusions>src/main/java/de/hbrs/todolistmanager/controller/TodoListViewController.java,
+					src/main/java/de/hbrs/todolistmanager/controller/ResizingListener.java,
+					src/main/java/de/hbrs/todolistmanager/view/DatePropertyValueFactory.java,
+					src/main/java/de/hbrs/todolistmanager/TodoListManager.java
+				</sonar.coverage.exclusions>
+			</properties>
+		</profile>
+	</profiles>
+</project>

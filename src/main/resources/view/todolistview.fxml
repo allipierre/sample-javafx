@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.hbrs.todolistmanager.view.DatePropertyValueFactory?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane fx:id="rootGridPane" alignment="CENTER" hgap="10.0" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hbrs.todolistmanager.controller.TodoListViewController">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+    <Label style="-fx-font: NORMAL 20 Tahoma;" text="Meine Aufgaben" GridPane.columnIndex="0" GridPane.rowIndex="0">
+    </Label>
+    <TableView fx:id="tableView" GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <columns>
+            <TableColumn fx:id="issueTableColumn" prefWidth="320.0" text="Anliegen">
+                <cellValueFactory><PropertyValueFactory property="issue" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="latestFinishDateTableColumn" prefWidth="180.0" text="Späteste Fertigstellung">
+                <cellValueFactory><DatePropertyValueFactory property="latestFinishDate" />
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+   <FlowPane hgap="10.0" vgap="5.0" prefHeight="200.0" GridPane.rowIndex="2">
+      <children>
+         <TextField fx:id="issueTextField" promptText="Anliegen" />
+         <DatePicker fx:id="latestFinishDateDatePicker" promptText="Späteste Fertigstellung" />
+         <Button fx:id="addButton" mnemonicParsing="false" onAction="#addTodoItem" text="Hinzufügen" />
+         <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#delete" text="Löschen" />
+      </children>
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets>
+   </FlowPane>
+   <FlowPane hgap="10.0" vgap="5.0"  prefHeight="200.0"  GridPane.rowIndex="3">
+      <children>
+         <Button mnemonicParsing="false" onAction="#undo" text="Rückgängig" />
+      </children>
+   </FlowPane>
+</GridPane>
